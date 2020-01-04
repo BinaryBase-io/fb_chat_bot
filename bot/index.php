@@ -26,5 +26,10 @@ $botman->hears('hello', function (BotMan $bot) {
     $bot->reply('Hello yourself.');
 });
 
+// Fallbacks
+$botman->fallback(function($bot) {
+    $bot->reply('Sorry, I did not understand these commands. Here is a list of commands I understand: ...');
+});
+
 // Start listening
 $botman->listen();
