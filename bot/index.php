@@ -22,13 +22,29 @@ DriverManager::loadDriver(\BotMan\Drivers\Facebook\FacebookDriver::class);
 $botman = BotManFactory::create($config);
 
 // Give the bot something to listen for.
-$botman->hears('hello', function (BotMan $bot) {
-    $bot->reply('Hello yourself.');
+$botman->hears('hello|hi', function (BotMan $bot) {
+    $bot->reply('We are glad to see you.');
+    $bot->reply('To know app development price, please write app');
+    $bot->reply('To know web development price, please write web');
+});
+
+// Give the bot something to listen for.
+$botman->hears('app', function (BotMan $bot) {
+    $bot->reply('We are glad to see you.');
+    $bot->reply('To know app development price, please write app');
+    $bot->reply('To know web development price, please write web');
+});
+
+// Give the bot something to listen for.
+$botman->hears('web', function (BotMan $bot) {
+    $bot->reply('Developer don\'t have that much time to implement this one.' ) ;
+    $bot->reply('Please check app price for now.') ;
 });
 
 // Fallbacks
 $botman->fallback(function($bot) {
-    $bot->reply('Sorry, I did not understand these commands. Here is a list of commands I understand: ...');
+    $bot->reply('Sorry, I did not understand these commands. Here is a list of commands I understand:');
+    $bot->reply('hi | app | web');
 });
 
 // Start listening
