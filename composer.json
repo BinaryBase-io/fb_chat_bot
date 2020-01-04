@@ -1,0 +1,9 @@
+{
+    "require": {
+        "botman/botman": "^2.5",
+        "botman/driver-facebook": "^1.10"
+    },
+    "require-dev": {
+        "heroku/heroku-buildpack-php": "*"
+      }
+}
