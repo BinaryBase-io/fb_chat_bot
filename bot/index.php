@@ -24,8 +24,36 @@ $botman = BotManFactory::create($config);
 // Give the bot something to listen for.
 $botman->hears('hello|hi', function (BotMan $bot) {
     $bot->reply('We are glad to see you.');
-    $bot->reply('To know app development price, please write app');
-    $bot->reply('To know web development price, please write web');
+
+    $bot->reply(ButtonTemplate::create('Do you want to know development price?')
+        ->addButton(ElementButton::create('Yes')
+            ->type('postback')
+            ->payload('yes')
+        )
+        ->addButton(ElementButton::create('No')
+            ->type('postback')
+            ->payload('no')
+        )
+    );
+});
+
+$botman->hears('yes', function(BotMan $bot){
+    $bot->reply(ButtonTemplate::create('Which\'s price you want to know?')
+        ->addButton(ElementButton::create('App Development')
+            ->type('postback')
+            ->payload('app')
+        )
+        ->addButton(ElementButton::create('Web Design/Development')
+            ->type('postback')
+            ->payload('web')
+        )
+    );
+});
+
+// Give the bot something to listen for.
+$botman->hears('No', function (BotMan $bot) {
+    $bot->reply('Thank you for being with us.');
+    $bot->reply('Have a wonderful time. :)');
 });
 
 // Give the bot something to listen for.
