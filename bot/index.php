@@ -5,6 +5,8 @@ require('../vendor/autoload.php');
 use BotMan\BotMan\BotMan;
 use BotMan\BotMan\BotManFactory;
 use BotMan\BotMan\Drivers\DriverManager;
+use BotMan\Drivers\Facebook\Extensions\ButtonTemplate;
+use BotMan\Drivers\Facebook\Extensions\ElementButton
 
 $config = [
     // Your driver-specific configuration
@@ -53,7 +55,7 @@ $botman->hears('yes', function(BotMan $bot){
 // Give the bot something to listen for.
 $botman->hears('No', function (BotMan $bot) {
     $bot->reply('Thank you for being with us.');
-    $bot->reply('Have a wonderful time. :)');
+    $bot->reply('Have a wonderful time.');
 });
 
 // Give the bot something to listen for.
