@@ -27,8 +27,12 @@ DriverManager::loadDriver(\BotMan\Drivers\Facebook\FacebookDriver::class);
 // Create an instance
 $botman = BotManFactory::create($config);
 
+$i = 0;
+
 // Give the bot something to listen for.
 $botman->hears('hello|hi', function (BotMan $bot) {
+    $bot->reply($i);
+    $i= $i+1;
     $bot->reply('We are glad to see you.');
    // $bot->reply($bot->getMessage()->getText());
 
@@ -40,6 +44,8 @@ $botman->hears('hello|hi', function (BotMan $bot) {
 
 // Give the bot something to listen for.
 $botman->hears('later', function (BotMan $bot) {
+    $bot->reply($i);
+    $i= $i+1;
     $bot->reply('Thank you for being with us.');
     $bot->reply('Have a wonderful time.');
     $bot->reply(ButtonTemplate::create('Need further assistance? Talk to a representative')
@@ -54,6 +60,8 @@ $botman->hears('later', function (BotMan $bot) {
 });
 
 $botman->hears('sure', function(BotMan $bot){
+    $bot->reply($i);
+    $i= $i+1;
     $bot->reply(Question::create('Which price you want to know?')->addButtons([
         Button::create('App Development')->value('app'),
         Button::create('Web Design/Development')->value('web'),
@@ -62,14 +70,18 @@ $botman->hears('sure', function(BotMan $bot){
 
 // Give the bot something to listen for.
 $botman->hears('app', function (BotMan $bot) {
+    $bot->reply($i);
+    $i= $i+1;
     $bot->reply(Question::create('What type of app are you building?')->addButtons([
         Button::create('Android')->value('android'),
         Button::create('Apple iOS')->value('ios'),
-        Button::create('Apple iOS and Android')->value('both'),
+        Button::create('Both')->value('both'),
     ]));
 });
 
 $botman->hears('android|ios|both', function (BotMan $bot) {
+    $bot->reply($i);
+    $i= $i+1;
     $bot->reply(Question::create('Do people have to login?')->addButtons([
         Button::create('Email')->value('email'),
         Button::create('Social')->value('social'),
@@ -79,6 +91,8 @@ $botman->hears('android|ios|both', function (BotMan $bot) {
 });
 
 $botman->hears('email|social|otp|none', function (BotMan $bot) {
+    $bot->reply($i);
+    $i= $i+1;
     $bot->reply(Question::create('Do people create personal profiles?')->addButtons([
         Button::create('Yes')->value('yes'),
         Button::create('No')->value('never'),
@@ -96,12 +110,12 @@ $botman->hears('yes|never|maybe', function (BotMan $bot) {
 
 $botman->hears('upfront|in-app|free', function (BotMan $bot) {
     $bot->reply(Question::create('Do people rate or review things?')->addButtons([
-        Button::create('Yes')->value('yes, rating'),
-        Button::create('No')->value('no, rating'),
+        Button::create('Yes')->value('rating'),
+        Button::create('No')->value('no_rating'),
     ]));
 });
 
-$botman->hears('yes, rating|no, rating', function (BotMan $bot) {
+$botman->hears('rating|no_rating', function (BotMan $bot) {
     $bot->reply(Question::create('Does your app need to get information from your website?')->addButtons([
         Button::create('Yes')->value('get information'),
         Button::create('No')->value('not need'),
@@ -118,6 +132,13 @@ $botman->hears('get information|not need|don\'t know', function (BotMan $bot) {
 });
 
 $botman->hears('bare-bones|stock|beautiful', function (BotMan $bot) {
+    $bot->reply(Question::create('Do you need an app icon?')->addButtons([
+        Button::create('Yes')->value('need'),
+        Button::create('No')->value('have'),
+    ]));
+});
+
+$botman->hears('need|have', function (BotMan $bot) {
     $bot->reply(Question::create('Do you need an app icon?')->addButtons([
         Button::create('Yes')->value('I need one'),
         Button::create('No')->value('I have one'),
