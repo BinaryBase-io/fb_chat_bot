@@ -29,7 +29,7 @@ $botman = BotManFactory::create($config);
 // Give the bot something to listen for.
 $botman->hears('hello|hi', function (BotMan $bot) {
     $bot->reply('We are glad to see you.');
-    $bot->reply($bot->getMessage()->getPayload());
+    $bot->reply($bot->getMessage());
 
     $bot->reply(Question::create('Do you want to know development price?')->addButtons([
         Button::create('Yes')->value('yes'),
