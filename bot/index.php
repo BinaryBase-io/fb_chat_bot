@@ -12,8 +12,6 @@ use BotMan\BotMan\Messages\Outgoing\Question;
 use BotMan\BotMan\Messages\Outgoing\Actions\Button;
 use BotMan\BotMan\Messages\Conversations\Conversation;
 
-use BotMan\BotMan\Cache\Psr6Cache;
-
 $config = [
     // Your driver-specific configuration
     'facebook' => [
@@ -27,7 +25,7 @@ $config = [
 DriverManager::loadDriver(\BotMan\Drivers\Facebook\FacebookDriver::class);
 
 // Create an instance
-$botman = BotManFactory::create($config, new Psr6Cache($adapter));
+$botman = BotManFactory::create($config);
 
 // Give the bot something to listen for.
 $botman->hears('hello|hi', function (BotMan $bot) {
@@ -127,13 +125,12 @@ $botman->hears('bare-bones|stock|beautiful', function (BotMan $bot) {
 });
 
 $botman->hears('need|have', function (BotMan $bot) {
-    $bot->reply(ButtonTemplate::create('Need further assistance? Talk to a representative')
+    $bot->reply('Please provide your contact information. We will contact with you ASAP.');
+    $bot->replay('OR') ;
+    $bot->reply(ButtonTemplate::create('Talk to a representative')
         ->addButton(ElementButton::create('Call Representative')
             ->type('phone_number')
-            ->payload('+8801731123861')
-        )
-        ->addButton(ElementButton::create('Visit Our Website')
-            ->url('http://binarybase.io/')
+            ->payload('+8801915857610')
         )
     );
 });
