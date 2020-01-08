@@ -5,10 +5,11 @@ require('../vendor/autoload.php');
 use BotMan\BotMan\BotMan;
 use BotMan\BotMan\BotManFactory;
 use BotMan\BotMan\Drivers\DriverManager;
-use BotMan\Drivers\Facebook\Extensions\ButtonTemplate;
-use BotMan\Drivers\Facebook\Extensions\ElementButton;
+
+use BotMan\BotMan\Messages\Incoming\Answer;
 use BotMan\BotMan\Messages\Outgoing\Question;
 use BotMan\BotMan\Messages\Outgoing\Actions\Button;
+use BotMan\BotMan\Messages\Conversations\Conversation;
 
 $config = [
     // Your driver-specific configuration
@@ -26,40 +27,14 @@ DriverManager::loadDriver(\BotMan\Drivers\Facebook\FacebookDriver::class);
 $botman = BotManFactory::create($config);
 
 // Give the bot something to listen for.
-$botman->hears('hello|hi', function (BotMan $bot) {
+$botman->hears('hello|hi', function (BotMan $bot, $ans) {
     $bot->reply('We are glad to see you.');
+    $bot->reply($ans);
 
-    $bot->reply(ButtonTemplate::create('Do you want to know development price?')
-        ->addButton(ElementButton::create('Yes')
-            ->type('postback')
-            ->payload('yes')
-        )
-        ->addButton(ElementButton::create('No')
-            ->type('postback')
-            ->payload('no')
-        )
-    );
-});
-
-
-$botman->hears('I want more', function (BotMan $bot) {
-    $bot->reply(Question::create('Are you sure?')->addButtons([
+    $bot->reply(Question::create('Do you want to know development price?')->addButtons([
         Button::create('Yes')->value('yes'),
         Button::create('No')->value('no'),
     ]));
-});
-
-$botman->hears('yes', function(BotMan $bot){
-    $bot->reply(ButtonTemplate::create('Which\'s price you want to know?')
-        ->addButton(ElementButton::create('App Development')
-            ->type('postback')
-            ->payload('app')
-        )
-        ->addButton(ElementButton::create('Web Design/Development')
-            ->type('postback')
-            ->payload('web')
-        )
-    );
 });
 
 // Give the bot something to listen for.
@@ -68,11 +43,16 @@ $botman->hears('No', function (BotMan $bot) {
     $bot->reply('Have a wonderful time.');
 });
 
+$botman->hears('yes', function(BotMan $bot){
+    $bot->reply(Question::create('Which\'s price you want to know?')->addButtons([
+        Button::create('App Development')->value('app'),
+        Button::create('Web Design/Development')->value('web'),
+    ]));
+});
+
 // Give the bot something to listen for.
 $botman->hears('app', function (BotMan $bot) {
-    $bot->reply('We are glad to see you.');
-    $bot->reply('To know app development price, please write app');
-    $bot->reply('To know web development price, please write web');
+
 });
 
 // Give the bot something to listen for.
