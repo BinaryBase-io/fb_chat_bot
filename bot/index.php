@@ -7,6 +7,7 @@ use BotMan\BotMan\BotManFactory;
 use BotMan\BotMan\Drivers\DriverManager;
 use BotMan\Drivers\Facebook\Extensions\ButtonTemplate;
 use BotMan\Drivers\Facebook\Extensions\ElementButton;
+use BotMan\BotMan\Messages\Outgoing\Question;
 
 $config = [
     // Your driver-specific configuration
