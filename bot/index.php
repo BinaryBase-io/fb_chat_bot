@@ -39,6 +39,14 @@ $botman->hears('hello|hi', function (BotMan $bot) {
     );
 });
 
+
+$botman->hears('I want more', function (BotMan $bot) {
+    $bot->reply(Question::create('Are you sure?')->addButtons([
+        Button::create('Yes')->value('yes'),
+        Button::create('No')->value('no'),
+    ]));
+});
+
 $botman->hears('yes', function(BotMan $bot){
     $bot->reply(ButtonTemplate::create('Which\'s price you want to know?')
         ->addButton(ElementButton::create('App Development')
