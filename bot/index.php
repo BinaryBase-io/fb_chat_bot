@@ -126,7 +126,7 @@ $botman->hears('bare-bones|stock|beautiful', function (BotMan $bot) {
 
 $botman->hears('need|have', function (BotMan $bot) {
     $bot->reply('Please provide your contact information. We will contact with you ASAP.');
-    $bot->replay('OR') ;
+    $bot->reply('OR') ;
     $bot->reply(ButtonTemplate::create('Talk to a representative')
         ->addButton(ElementButton::create('Call Representative')
             ->type('phone_number')
