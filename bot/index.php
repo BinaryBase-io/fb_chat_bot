@@ -31,7 +31,7 @@ $i = 0;
 
 // Give the bot something to listen for.
 $botman->hears('hello|hi', function (BotMan $bot) {
-    $bot->reply($i);
+    $bot->reply('boo '.$i);
     $i= $i+1;
     $bot->reply('We are glad to see you.');
    // $bot->reply($bot->getMessage()->getText());
@@ -44,7 +44,7 @@ $botman->hears('hello|hi', function (BotMan $bot) {
 
 // Give the bot something to listen for.
 $botman->hears('later', function (BotMan $bot) {
-    $bot->reply($i);
+    $bot->reply('boo '.$i);
     $i= $i+1;
     $bot->reply('Thank you for being with us.');
     $bot->reply('Have a wonderful time.');
@@ -60,8 +60,6 @@ $botman->hears('later', function (BotMan $bot) {
 });
 
 $botman->hears('sure', function(BotMan $bot){
-    $bot->reply($i);
-    $i= $i+1;
     $bot->reply(Question::create('Which price you want to know?')->addButtons([
         Button::create('App Development')->value('app'),
         Button::create('Web Design/Development')->value('web'),
@@ -70,8 +68,6 @@ $botman->hears('sure', function(BotMan $bot){
 
 // Give the bot something to listen for.
 $botman->hears('app', function (BotMan $bot) {
-    $bot->reply($i);
-    $i= $i+1;
     $bot->reply(Question::create('What type of app are you building?')->addButtons([
         Button::create('Android')->value('android'),
         Button::create('Apple iOS')->value('ios'),
@@ -80,8 +76,6 @@ $botman->hears('app', function (BotMan $bot) {
 });
 
 $botman->hears('android|ios|both', function (BotMan $bot) {
-    $bot->reply($i);
-    $i= $i+1;
     $bot->reply(Question::create('Do people have to login?')->addButtons([
         Button::create('Email')->value('email'),
         Button::create('Social')->value('social'),
