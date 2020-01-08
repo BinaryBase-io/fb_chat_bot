@@ -34,12 +34,12 @@ $botman->hears('hello|hi', function (BotMan $bot) {
 
     $bot->reply(Question::create('Do you want to know development price?')->addButtons([
         Button::create('Sure')->value('sure'),
-        Button::create('Not Now')->value('not know'),
+        Button::create('Later')->value('later'),
     ]));
 });
 
 // Give the bot something to listen for.
-$botman->hears('Not know', function (BotMan $bot) {
+$botman->hears('later', function (BotMan $bot) {
     $bot->reply('Thank you for being with us.');
     $bot->reply('Have a wonderful time.');
     $bot->reply(ButtonTemplate::create('Need further assistance? Talk to a representative')
@@ -75,44 +75,42 @@ $botman->hears('android|ios|both', function (BotMan $bot) {
         Button::create('Social')->value('social'),
         Button::create('Mobile & OTP')->value('otp'),
         Button::create('No')->value('none'),
-        Button::create('I don\'t know')->value('don\'t know about login'),
     ]));
 });
 
-$botman->hears('email|social|otp|don\'t know about login|none', function (BotMan $bot) {
+$botman->hears('email|social|otp|none', function (BotMan $bot) {
     $bot->reply(Question::create('Do people create personal profiles?')->addButtons([
         Button::create('Yes')->value('yes'),
         Button::create('No')->value('no'),
-        Button::create('I don\'t know')->value('don\'t know about profile'),
+        Button::create('I don\'t know')->value('maybe'),
     ]));
 });
 
-$botman->hears('yes|no|don\'t know about profile', function (BotMan $bot) {
+$botman->hears('yes|no|maybe', function (BotMan $bot) {
     $bot->reply(Question::create('How will you make money from your app?')->addButtons([
         Button::create('Upfront cost')->value('upfront'),
         Button::create('In-app purchase')->value('in-app'),
         Button::create('Free')->value('free'),
-        Button::create('I don\'t know')->value('don\'t know about making money'),
+        Button::create('I don\'t know')->value('no idea'),
     ]));
 });
 
-$botman->hears('upfront|in-app|don\'t know about making money|free', function (BotMan $bot) {
+$botman->hears('upfront|in-app|no idea', function (BotMan $bot) {
     $bot->reply(Question::create('Do people rate or review things?')->addButtons([
         Button::create('Yes')->value('yes, rating'),
         Button::create('No')->value('no, rating'),
-        Button::create('I don\'t know')->value('don\'t know about rating'),
     ]));
 });
 
-$botman->hears('yes, rating|no, rating|don\'t know about rating', function (BotMan $bot) {
+$botman->hears('yes, rating|no, rating', function (BotMan $bot) {
     $bot->reply(Question::create('Does your app need to get information from your website?')->addButtons([
-        Button::create('Yes')->value('yes, get information'),
-        Button::create('No')->value('no, not need'),
-        Button::create('I don\'t know')->value('don\'t know about this'),
+        Button::create('Yes')->value('get information'),
+        Button::create('No')->value('not need'),
+        Button::create('I don\'t know')->value('don\'t know'),
     ]));
 });
 
-$botman->hears('yes, get information|no, not need|don\'t know about this', function (BotMan $bot) {
+$botman->hears('get information|not need|don\'t know', function (BotMan $bot) {
     $bot->reply(Question::create('How nice should your app look?')->addButtons([
         Button::create('Bare-bones')->value('bare-bones'),
         Button::create('Stock')->value('stock'),
@@ -122,9 +120,8 @@ $botman->hears('yes, get information|no, not need|don\'t know about this', funct
 
 $botman->hears('bare-bones|stock|beautiful', function (BotMan $bot) {
     $bot->reply(Question::create('Do you need an app icon?')->addButtons([
-        Button::create('Yes')->value('yes, I need'),
-        Button::create('No')->value('no, I have'),
-        Button::create('I don\'t know')->value('don\'t know about icon'),
+        Button::create('Yes')->value('I need one'),
+        Button::create('No')->value('I have one'),
     ]));
 });
 
