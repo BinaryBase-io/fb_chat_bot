@@ -12,6 +12,8 @@ use BotMan\BotMan\Messages\Outgoing\Question;
 use BotMan\BotMan\Messages\Outgoing\Actions\Button;
 use BotMan\BotMan\Messages\Conversations\Conversation;
 
+use BotMan\BotMan\Cache\Psr6Cache;
+
 $config = [
     // Your driver-specific configuration
     'facebook' => [
@@ -25,14 +27,10 @@ $config = [
 DriverManager::loadDriver(\BotMan\Drivers\Facebook\FacebookDriver::class);
 
 // Create an instance
-$botman = BotManFactory::create($config);
-
-$i = 0;
+$botman = BotManFactory::create($config, new Psr6Cache($adapter));
 
 // Give the bot something to listen for.
 $botman->hears('hello|hi', function (BotMan $bot) {
-    $bot->reply('boo '.$i);
-    $i= $i+1;
     $bot->reply('We are glad to see you.');
    // $bot->reply($bot->getMessage()->getText());
 
@@ -44,8 +42,6 @@ $botman->hears('hello|hi', function (BotMan $bot) {
 
 // Give the bot something to listen for.
 $botman->hears('later', function (BotMan $bot) {
-    $bot->reply('boo '.$i);
-    $i= $i+1;
     $bot->reply('Thank you for being with us.');
     $bot->reply('Have a wonderful time.');
     $bot->reply(ButtonTemplate::create('Need further assistance? Talk to a representative')
@@ -85,8 +81,6 @@ $botman->hears('android|ios|both', function (BotMan $bot) {
 });
 
 $botman->hears('email|social|otp|none', function (BotMan $bot) {
-    $bot->reply($i);
-    $i= $i+1;
     $bot->reply(Question::create('Do people create personal profiles?')->addButtons([
         Button::create('Yes')->value('yes'),
         Button::create('No')->value('never'),
@@ -133,10 +127,15 @@ $botman->hears('bare-bones|stock|beautiful', function (BotMan $bot) {
 });
 
 $botman->hears('need|have', function (BotMan $bot) {
-    $bot->reply(Question::create('Do you need an app icon?')->addButtons([
-        Button::create('Yes')->value('I need one'),
-        Button::create('No')->value('I have one'),
-    ]));
+    $bot->reply(ButtonTemplate::create('Need further assistance? Talk to a representative')
+        ->addButton(ElementButton::create('Call Representative')
+            ->type('phone_number')
+            ->payload('+8801731123861')
+        )
+        ->addButton(ElementButton::create('Visit Our Website')
+            ->url('http://binarybase.io/')
+        )
+    );
 });
 
 // Give the bot something to listen for.
