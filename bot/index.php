@@ -81,21 +81,20 @@ $botman->hears('android|ios|both', function (BotMan $bot) {
 $botman->hears('email|social|otp|none', function (BotMan $bot) {
     $bot->reply(Question::create('Do people create personal profiles?')->addButtons([
         Button::create('Yes')->value('yes'),
-        Button::create('No')->value('no'),
+        Button::create('No')->value('never'),
         Button::create('I don\'t know')->value('maybe'),
     ]));
 });
 
-$botman->hears('yes|no|maybe', function (BotMan $bot) {
+$botman->hears('yes|never|maybe', function (BotMan $bot) {
     $bot->reply(Question::create('How will you make money from your app?')->addButtons([
         Button::create('Upfront cost')->value('upfront'),
         Button::create('In-app purchase')->value('in-app'),
         Button::create('Free')->value('free'),
-        Button::create('I don\'t know')->value('no idea'),
     ]));
 });
 
-$botman->hears('upfront|in-app|no idea', function (BotMan $bot) {
+$botman->hears('upfront|in-app|free', function (BotMan $bot) {
     $bot->reply(Question::create('Do people rate or review things?')->addButtons([
         Button::create('Yes')->value('yes, rating'),
         Button::create('No')->value('no, rating'),
